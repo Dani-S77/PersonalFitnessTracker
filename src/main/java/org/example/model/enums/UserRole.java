@@ -1,5 +1,6 @@
 package org.example.model.enums;
 
-public class UserRole {
-
+public enum UserRole {
+    ADMIN,
+    REGULAR
 }
