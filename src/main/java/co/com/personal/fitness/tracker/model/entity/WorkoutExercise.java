@@ -1,4 +1,4 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
 public class WorkoutExercise {
     private Exercise Exercise;

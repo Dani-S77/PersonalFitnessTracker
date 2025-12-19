@@ -1,4 +1,4 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +33,20 @@ public class Workout {
     }
     public List<WorkoutExercise> getExercises(){
         return exercises;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("Workout: ").append(name).append("\n");
+        sb.append("Description: ").append(description).append("\n");
+        sb.append("Exercises:\n");
+        for(WorkoutExercise we : exercises){
+            sb.append(" - ").append(we.getExercise().getName())
+                    .append(": ").append(we.getSets()).append(" sets x")
+                    .append(we.getRepetitions()).append(" reps\n");
+
+        }
+        return sb.toString();
     }
 }

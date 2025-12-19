@@ -1,13 +1,13 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
 public class Exercise {
     private String id;
-    private String nombre;
+    private String name;
     private String description;
 
-    public Exercise(String id, String nombre, String description){
+    public Exercise(String id, String name, String description){
         this.id=id;
-        this.nombre=nombre;
+        this.name=name;
         this.description=description;
     }
 
@@ -15,8 +15,8 @@ public class Exercise {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {

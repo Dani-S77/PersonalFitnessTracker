@@ -1,4 +1,4 @@
- package org.example;
+ package co.com.personal.fitness.tracker;
 
 
 public class Main {

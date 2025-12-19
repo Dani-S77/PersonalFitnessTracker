@@ -1,4 +1,4 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,4 +39,7 @@ public class WorkoutLog {
     public List<ExerciseLog> getExerciseLogs(){
         return exerciseLogs;
     }
+
+
+
 }
