@@ -31,8 +31,8 @@ public abstract class User {
         return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
