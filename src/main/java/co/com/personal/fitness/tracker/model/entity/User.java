@@ -1,6 +1,6 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
-import org.example.model.enums.UserRole;
+import co.com.personal.fitness.tracker.model.enums.UserRole;
 
 public abstract class User {
     private String id;
@@ -31,8 +31,8 @@ public abstract class User {
         return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {

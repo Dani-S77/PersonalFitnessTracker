@@ -1,6 +1,6 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
-import org.example.model.enums.UserRole;
+import co.com.personal.fitness.tracker.model.enums.UserRole;
 
 public class AdminUser extends User{
 
