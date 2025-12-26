@@ -1,14 +1,13 @@
-package co.com.personal.fitness.tracker.repository;
+package co.com.personal.fitness.tracker.model.service.repository;
 
 import co.com.personal.fitness.tracker.model.entity.Exercise;
-import co.com.personal.fitness.tracker.model.entity.Workout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExerciseRepository implements IRepository<Exercise> {
+public class ExerciseRepository implements Repository<Exercise> {
     private Map<String, Exercise> exercises=new HashMap<>();
 
 
