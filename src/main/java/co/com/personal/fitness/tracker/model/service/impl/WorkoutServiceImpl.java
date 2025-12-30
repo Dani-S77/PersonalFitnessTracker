@@ -7,6 +7,7 @@ import co.com.personal.fitness.tracker.model.service.repository.WorkoutRepositor
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class WorkoutServiceImpl implements WorkoutService {
     private WorkoutRepository workoutRepository;
@@ -18,7 +19,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public WorkoutLog logWorkout(RegularUser user, String workoutId, Map<String, Integer> exerciseTimes) throws Exception{
         Workout workout=workoutRepository.findById(workoutId);
-        if(workout==null){
+        if(Objects.isNull(workout)){
             throw new Exception("Workout not Found");
         }
         int totalTime=0;
