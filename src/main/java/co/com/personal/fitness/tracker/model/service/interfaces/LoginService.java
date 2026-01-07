@@ -1,7 +1,7 @@
-package co.com.personal.fitness.tracker.model.service;
+package co.com.personal.fitness.tracker.model.service.interfaces;
 
 import co.com.personal.fitness.tracker.model.entity.User;
 
-public interface ILoginService {
+public interface LoginService {
     User login(String email, String password) throws Exception;
 }

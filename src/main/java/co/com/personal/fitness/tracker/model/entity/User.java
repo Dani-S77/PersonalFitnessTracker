@@ -19,6 +19,10 @@ public abstract class User {
 
     public abstract UserRole getRole();
 
+    public boolean isAdmin(){
+        return this.getRole() == UserRole.ADMIN;
+    }
+
     public String getId() {
         return id;
     }
