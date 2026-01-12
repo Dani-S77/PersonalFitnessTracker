@@ -14,6 +14,9 @@ public class AuthController {
     public AuthController(LoginService loginService, RegisterService registerService){
         this.loginService=loginService;
         this.registerService=registerService;
+
+
+
     }
 
     public User handleLogin(String email, String password) throws UserNotFoundException, InvalidCredentialsException {
