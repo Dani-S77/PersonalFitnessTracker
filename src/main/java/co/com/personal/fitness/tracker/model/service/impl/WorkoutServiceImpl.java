@@ -22,6 +22,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         if(Objects.isNull(workout)){
             throw new Exception("Workout not Found");
         }
+
         int totalTime=0;
         String logId= String.valueOf(System.currentTimeMillis());
         WorkoutLog workoutLog=new WorkoutLog(logId, workout, LocalDate.now(), 0);

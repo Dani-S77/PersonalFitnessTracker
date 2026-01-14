@@ -13,7 +13,7 @@ public class RegisterServiceImpl implements RegisterService {
     private UserRepository userRepository;
 
     public RegisterServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        this.userRepository = new UserRepository();
     }
 
     @Override

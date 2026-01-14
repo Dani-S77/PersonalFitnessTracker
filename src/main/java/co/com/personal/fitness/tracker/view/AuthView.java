@@ -3,11 +3,12 @@ package co.com.personal.fitness.tracker.view;
 import co.com.personal.fitness.tracker.controller.AuthController;
 import co.com.personal.fitness.tracker.model.entity.User;
 
+
 import java.util.Scanner;
 
 public class AuthView {
-    private AuthController authController;
-    private Scanner scanner;
+    private  AuthController authController;
+    private  Scanner scanner;
 
     public AuthView(AuthController authController, Scanner scanner){
         this.authController=authController;
@@ -15,21 +16,13 @@ public class AuthView {
     }
 
     public User displayLoginMenu(){
-        System.out.println("\n=== LOGIN ===");
-        System.out.println("Email: ");
-        String email=scanner.nextLine();
-        System.out.println("Password: ");
-        String password=scanner.nextLine();
-
-        try{
-            User user=authController.handleLogin(email, password);
-            System.out.println("\n Login seccessful! Welcome, " + user.getFirstName() + "!");
-            return user;
-        } catch(Exception e){
-            System.out.println("\n Login failed: " + e.getMessage());
-            return null;
-        }
+        return null;
     }
+
+
+
+
+
 
     public User displayRegisterMenu(){
         System.out.println("\n=== REGISTER ===");
@@ -44,11 +37,15 @@ public class AuthView {
 
         try{
             User user = authController.handleRegister(firstName, lastName, email, password, false);
+
             System.out.println("\n Registration successful! Welcome, " + user.getFirstName() + "!");
-            return user;
+            System.out.println("User ID: " + user.getId());
+            System.out.println("Name: " + user.getFirstName() + " " + user.getLastName());
+            System.out.println("Email: " +user.getEmail());
+            System.out.println("Role: " +user.getRole());
         } catch(Exception e){
             System.out.println("\n Registration failed:" + e.getMessage());
-            return null;
         }
+        return null;
     }
 }

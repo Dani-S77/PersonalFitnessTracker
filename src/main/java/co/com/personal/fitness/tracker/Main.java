@@ -1,43 +1,75 @@
  package co.com.personal.fitness.tracker;
 
 
- import co.com.personal.fitness.tracker.controller.AuthController;
+ import co.com.personal.fitness.tracker.config.DependencyContainer;
  import co.com.personal.fitness.tracker.model.entity.User;
- import co.com.personal.fitness.tracker.model.service.impl.RegisterServiceImpl;
- import co.com.personal.fitness.tracker.model.service.interfaces.RegisterService;
- import co.com.personal.fitness.tracker.model.service.repository.UserRepository;
  import co.com.personal.fitness.tracker.view.AuthView;
 
  import java.util.Scanner;
 
  public class Main {
-    public static void main(String[] args) {
-     Scanner scanner =new Scanner(System.in);
+     private AuthView authView;
+     private User currentUser;
+     private Scanner scanner;
 
-     UserRepository userRepository=new UserRepository();
-
-     RegisterService registerService =new RegisterServiceImpl(userRepository);
-
-     AuthController authController =new AuthController(null, registerService);
-
-     AuthView authView = new AuthView(authController, scanner);
-
-
-     System.out.println("\n" + "=".repeat(80));
-     System.out.println("WELCOME TO FITNESS TRACKER - REGISTRATION");
-     System.out.println("=".repeat(80));
-
-     User newUser = authView.displayRegisterMenu();
-
-     if(newUser != null){
-         System.out.println("\n User registered successfully!");
-         System.out.println("User ID: " + newUser.getId());
-         System.out.println("Name: " + newUser.getFirstName() + " " + newUser.getLastName());
-         System.out.println("Email: " + newUser.getEmail());
-         System.out.println("Role: " + newUser.getRole());
-     }else{
-         System.out.println("\n Registration failed.");
+     public Main(DependencyContainer container ){
+          this.scanner=container.getScanner();
+          this.authView=container.getAuthView();
      }
-     scanner.close();
-    }
+
+
+     public void startApp() {
+         System.out.println("\n" + "=".repeat(80));
+         System.out.println("WELCOME TO FITNESS TRACKER");
+         System.out.println("=".repeat(80));
+
+         while(true){
+             if(currentUser ==null){
+                 displayMainMenu();
+             }
+         }
+     }
+
+     private void displayMainMenu(){
+         System.out.println("\n1. Login");
+         System.out.println("2. Register");
+         System.out.println("3. Exit");
+         System.out.println("\nEnter your choice: ");
+
+         String choice= scanner.nextLine();
+
+         switch(choice){
+             case "1" -> {
+                 currentUser=authView.displayLoginMenu();
+                 if(currentUser != null){
+                     routerUser();
+                 }
+             }
+             case "2" -> {
+                 currentUser=authView.displayRegisterMenu();
+                 if(currentUser != null){
+                     routerUser();
+                 }
+             }
+             case "3" -> {
+                 System.out.println("\nThank you for using Fitness Tracker. Goodbye!");
+                 scanner.close();
+                 System.exit(0);
+             }
+             default -> System.out.println("\n Invalid option. Please try again");
+         }
+     }
+
+     private void routerUser(){
+
+     }
+
+
+
+
+    public static void main(String[] args) {
+         DependencyContainer container =new DependencyContainer();
+         Main app=new Main(container);
+         app.startApp();
+     }
 }
