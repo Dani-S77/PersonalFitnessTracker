@@ -14,10 +14,9 @@ public class AuthController {
     public AuthController(LoginService loginService, RegisterService registerService){
         this.loginService=loginService;
         this.registerService=registerService;
-
-
-
     }
+
+
 
     public User handleLogin(String email, String password) throws UserNotFoundException, InvalidCredentialsException {
         return loginService.login(email, password);
@@ -25,5 +24,9 @@ public class AuthController {
 
     public User handleRegister(String firstName, String lastName, String email, String password, boolean isAdmin)throws EmailAlreadyExistsException{
         return registerService.register(firstName, lastName, email, password, isAdmin);
+    }
+
+    public User handleRegisterAdmin(String firstName,String lastName, String email, String password) throws EmailAlreadyExistsException{
+        return registerService.registerAdmin(firstName, lastName, email, password);
     }
 }

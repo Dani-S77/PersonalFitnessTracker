@@ -6,4 +6,7 @@ import co.com.personal.fitness.tracker.model.entity.User;
 public interface RegisterService {
 
     User register(String firstName, String lastName, String email, String password, boolean isAdmin) throws EmailAlreadyExistsException;
+
+    User registerAdmin(String firstName, String lastName,String email, String password) throws EmailAlreadyExistsException;
+
 }

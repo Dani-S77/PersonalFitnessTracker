@@ -13,7 +13,7 @@ public class RegisterServiceImpl implements RegisterService {
     private UserRepository userRepository;
 
     public RegisterServiceImpl(UserRepository userRepository) {
-        this.userRepository = new UserRepository();
+        this.userRepository =userRepository;
     }
 
     @Override
@@ -31,4 +31,19 @@ public class RegisterServiceImpl implements RegisterService {
         }
         return userRepository.save(user);
     }
+
+    @Override
+    public User registerAdmin(String firstName, String lastName,String email, String password) throws EmailAlreadyExistsException {
+        if(!Objects.isNull(userRepository.findByEmail(email))){
+            throw new EmailAlreadyExistsException("Email already exists");
+        }
+
+        String id= String.valueOf(System.currentTimeMillis());
+
+        AdminUser admin =new AdminUser(id, firstName, lastName, email, password);
+
+        return userRepository.save(admin);
+    }
+
+
 }

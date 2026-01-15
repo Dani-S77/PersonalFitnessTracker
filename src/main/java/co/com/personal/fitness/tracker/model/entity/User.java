@@ -23,6 +23,13 @@ public abstract class User {
         return this.getRole() == UserRole.ADMIN;
     }
 
+    public boolean isSuperAdmin(){
+        return this.getRole()==UserRole.SUPERADMIN;
+    }
+
+
+
+
     public String getId() {
         return id;
     }
