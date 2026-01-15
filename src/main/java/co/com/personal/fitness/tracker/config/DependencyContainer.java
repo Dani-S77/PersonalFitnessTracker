@@ -1,12 +1,17 @@
 package co.com.personal.fitness.tracker.config;
 
+import co.com.personal.fitness.tracker.controller.AdminController;
 import co.com.personal.fitness.tracker.controller.AuthController;
+import co.com.personal.fitness.tracker.model.entity.RegularUser;
+import co.com.personal.fitness.tracker.model.entity.SuperAdminUser;
 import co.com.personal.fitness.tracker.model.service.impl.LoginServiceImpl;
 import co.com.personal.fitness.tracker.model.service.impl.RegisterServiceImpl;
 import co.com.personal.fitness.tracker.model.service.interfaces.LoginService;
 import co.com.personal.fitness.tracker.model.service.interfaces.RegisterService;
 import co.com.personal.fitness.tracker.model.service.repository.UserRepository;
+import co.com.personal.fitness.tracker.view.AdminView;
 import co.com.personal.fitness.tracker.view.AuthView;
+import co.com.personal.fitness.tracker.view.SuperAdminView;
 
 
 import java.util.Scanner;
@@ -19,10 +24,15 @@ public class DependencyContainer {
     private LoginService loginService;
     private RegisterService registerService;
 
-    private AuthView authView;
-
-
     private AuthController authController;
+    private AdminController adminController;
+
+    private AuthView authView;
+    private AdminView adminView;
+    private SuperAdminView superAdminView;
+
+
+
 
     public DependencyContainer(){
         this.scanner=new Scanner(System.in);
@@ -33,8 +43,23 @@ public class DependencyContainer {
         this.registerService=new RegisterServiceImpl(userRepository);
 
         this.authController=new AuthController(loginService, registerService);
+        this.adminController =new AdminController( authController);
 
         this.authView=new AuthView(authController, scanner);
+        this.adminView=new AdminView(adminController, scanner);
+        this.superAdminView=new SuperAdminView(adminController, scanner);
+
+        initializeSampleData();
+    }
+
+    private void initializeSampleData(){
+        SuperAdminUser superAdmin=new SuperAdminUser("superadmin1", "Super", "Admin", "superadmin@fit.com", "super123");
+        RegularUser user=new RegularUser("user1", "john", "Doe", "user@fit.com", "user123");
+
+
+        userRepository.save(superAdmin);
+        userRepository.save(user);
+
     }
 
 
@@ -46,5 +71,11 @@ public class DependencyContainer {
 
     public AuthView getAuthView(){
         return authView;
+    }
+    public AdminView getAdminView(){
+        return adminView;
+    }
+    public SuperAdminView getSuperAdminView(){
+        return superAdminView;
     }
 }

@@ -15,8 +15,21 @@ public class AuthView {
         this.scanner=scanner;
     }
 
-    public User displayLoginMenu(){
-        return null;
+    public User displayLoginMenu() {
+        System.out.println("\n=== LOGIN ===");
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        try {
+            User user = authController.handleLogin(email, password);
+            System.out.println("\n✓ Login successful! Welcome, " + user.getFirstName() + "!");
+            return user;
+        } catch (Exception e) {
+            System.out.println("\n✗ Login failed: " + e.getMessage());
+            return null;
+        }
     }
 
 
