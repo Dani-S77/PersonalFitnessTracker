@@ -3,11 +3,13 @@
 
  import co.com.personal.fitness.tracker.config.DependencyContainer;
  import co.com.personal.fitness.tracker.model.entity.AdminUser;
+ import co.com.personal.fitness.tracker.model.entity.RegularUser;
  import co.com.personal.fitness.tracker.model.entity.SuperAdminUser;
  import co.com.personal.fitness.tracker.model.entity.User;
  import co.com.personal.fitness.tracker.view.AdminView;
  import co.com.personal.fitness.tracker.view.AuthView;
  import co.com.personal.fitness.tracker.view.SuperAdminView;
+ import co.com.personal.fitness.tracker.view.UserView;
 
  import java.util.Scanner;
 
@@ -15,6 +17,7 @@
      private AuthView authView;
      private SuperAdminView superAdminView;
      private AdminView adminView;
+     private UserView userView;
      private Scanner scanner;
 
      private User currentUser;
@@ -25,6 +28,7 @@
           this.authView=container.getAuthView();
           this.adminView=container.getAdminView();
           this.superAdminView=container.getSuperAdminView();
+          this.userView=container.getUserView();
 
           this.running=true;
      }
@@ -75,6 +79,8 @@
              superAdminView.displaySuperAdminDashboard(superAdmin);
          }else if(currentUser instanceof AdminUser admin){
              adminView.displayAdminDashboard();
+         }else if(currentUser instanceof RegularUser regular){
+             userView.displayDashboard(regular);
          }
      }
 
