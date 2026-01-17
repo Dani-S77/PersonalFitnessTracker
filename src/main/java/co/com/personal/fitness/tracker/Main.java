@@ -1,7 +1,8 @@
  package co.com.personal.fitness.tracker;
 
 
- import co.com.personal.fitness.tracker.config.DependencyContainer;
+import co.com.personal.fitness.tracker.config.ApplicationContainer;
+
  import co.com.personal.fitness.tracker.model.entity.AdminUser;
  import co.com.personal.fitness.tracker.model.entity.RegularUser;
  import co.com.personal.fitness.tracker.model.entity.SuperAdminUser;
@@ -19,22 +20,21 @@
      private AdminView adminView;
      private UserView userView;
      private Scanner scanner;
-
      private User currentUser;
      private boolean running;
 
-     public Main(DependencyContainer container ){
+     public Main(ApplicationContainer container ){
           this.scanner=container.getScanner();
           this.authView=container.getAuthView();
           this.adminView=container.getAdminView();
           this.superAdminView=container.getSuperAdminView();
           this.userView=container.getUserView();
-
           this.running=true;
      }
 
 
      public void startApp() {
+         System.out.println("=".repeat(80));
           System.out.println("WELCOME TO FITNESS TRACKER");
          System.out.println("=".repeat(80));
 
@@ -43,6 +43,8 @@
          }while(running);
          scanner.close();
      }
+
+
 
      private void displayMainMenu(){
          System.out.println("\n1. Login");
@@ -74,6 +76,8 @@
          }
      }
 
+
+
      private void routerUser(){
          if(currentUser instanceof SuperAdminUser superAdmin){
              superAdminView.displaySuperAdminDashboard(superAdmin);
@@ -88,7 +92,7 @@
 
 
     public static void main(String[] args) {
-         DependencyContainer container =new DependencyContainer();
+         ApplicationContainer container =new ApplicationContainer();
          Main app=new Main(container);
          app.startApp();
      }
