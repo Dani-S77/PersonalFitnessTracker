@@ -2,16 +2,20 @@ package co.com.personal.fitness.tracker.config;
 
 import co.com.personal.fitness.tracker.controller.AdminController;
 import co.com.personal.fitness.tracker.controller.AuthController;
+import co.com.personal.fitness.tracker.controller.UserController;
 import co.com.personal.fitness.tracker.model.entity.RegularUser;
 import co.com.personal.fitness.tracker.model.entity.SuperAdminUser;
 import co.com.personal.fitness.tracker.model.service.impl.LoginServiceImpl;
 import co.com.personal.fitness.tracker.model.service.impl.RegisterServiceImpl;
+import co.com.personal.fitness.tracker.model.service.impl.UserServiceImpl;
 import co.com.personal.fitness.tracker.model.service.interfaces.LoginService;
 import co.com.personal.fitness.tracker.model.service.interfaces.RegisterService;
+import co.com.personal.fitness.tracker.model.service.interfaces.UserService;
 import co.com.personal.fitness.tracker.model.service.repository.UserRepository;
 import co.com.personal.fitness.tracker.view.AdminView;
 import co.com.personal.fitness.tracker.view.AuthView;
 import co.com.personal.fitness.tracker.view.SuperAdminView;
+import co.com.personal.fitness.tracker.view.UserView;
 
 
 import java.util.Scanner;
@@ -23,13 +27,16 @@ public class DependencyContainer {
 
     private LoginService loginService;
     private RegisterService registerService;
+    private UserService userService;
 
     private AuthController authController;
     private AdminController adminController;
+    private UserController userController;
 
     private AuthView authView;
     private AdminView adminView;
     private SuperAdminView superAdminView;
+    private UserView userView;
 
 
 
@@ -41,13 +48,16 @@ public class DependencyContainer {
 
         this.loginService=new LoginServiceImpl(userRepository);
         this.registerService=new RegisterServiceImpl(userRepository);
+        this.userService=new UserServiceImpl(userRepository);
 
         this.authController=new AuthController(loginService, registerService);
         this.adminController =new AdminController( authController);
+        this.userController=new UserController(userService);
 
         this.authView=new AuthView(authController, scanner);
         this.adminView=new AdminView(adminController, scanner);
         this.superAdminView=new SuperAdminView(adminController, scanner);
+        this.userView=new UserView(userController, scanner);
 
         initializeSampleData();
     }
@@ -77,5 +87,8 @@ public class DependencyContainer {
     }
     public SuperAdminView getSuperAdminView(){
         return superAdminView;
+    }
+    public UserView getUserView(){
+        return userView;
     }
 }
