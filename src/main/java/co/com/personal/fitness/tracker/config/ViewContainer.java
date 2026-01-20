@@ -23,6 +23,7 @@ public class ViewContainer {
 
         this.userView = new UserView(
                 controllerContainer.getUserController(),
+                controllerContainer.getWorkoutController(),
                 scanner
         );
 

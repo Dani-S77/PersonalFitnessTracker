@@ -57,7 +57,7 @@ public class DependencyContainer {
         this.authView=new AuthView(authController, scanner);
         this.adminView=new AdminView(adminController, scanner);
         this.superAdminView=new SuperAdminView(adminController, scanner);
-        this.userView=new UserView(userController, scanner);
+
 
         initializeSampleData();
     }
