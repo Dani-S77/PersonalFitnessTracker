@@ -1,17 +1,23 @@
 package co.com.personal.fitness.tracker.view;
 
 import co.com.personal.fitness.tracker.controller.UserController;
+import co.com.personal.fitness.tracker.controller.WorkoutController;
 import co.com.personal.fitness.tracker.model.entity.RegularUser;
+import co.com.personal.fitness.tracker.model.entity.Workout;
+import co.com.personal.fitness.tracker.model.entity.WorkoutExercise;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UserView {
     private UserController userController;
+    private WorkoutController workoutController;
     private Scanner scanner;
 
-    public UserView(UserController userController, Scanner scanner) {
+    public UserView(UserController userController,WorkoutController workoutController, Scanner scanner) {
 
         this.userController = userController;
+        this.workoutController=workoutController;
         this.scanner = scanner;
     }
 
@@ -61,7 +67,27 @@ public class UserView {
     }
 
     private void displayWorkouts() {
+        List<Workout> workouts = workoutController.getAvailableWorkouts();
+        System.out.println("\n" + "=".repeat(80));
+        System.out.println("AVAILABLE WORKOUTS");
+        System.out.println("=".repeat(80));
 
+        if (workouts.isEmpty()) {
+            System.out.println("\nNo workouts available.");
+            return;
+        }
+
+        for (int i = 0; i < workouts.size(); i++) {
+            Workout w = workouts.get(i);
+            System.out.println("\n" + (i + 1) + ". " + w.getName());
+            System.out.println("   Description: " + w.getDescription());
+            System.out.println("   Exercises:");
+            for (WorkoutExercise we : w.getExercises()) {
+                System.out.printf("   - %s: %d sets x %d reps%n",
+                        we.getExercise().getName(), we.getSets(), we.getRepetitions());
+            }
+        }
+        System.out.println("\n" + "=".repeat(80));
     }
 
     private void displayLogWorkoutMenu(RegularUser user) {
