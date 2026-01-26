@@ -2,11 +2,11 @@ package co.com.personal.fitness.tracker.view;
 
 import co.com.personal.fitness.tracker.controller.UserController;
 import co.com.personal.fitness.tracker.controller.WorkoutController;
-import co.com.personal.fitness.tracker.model.entity.RegularUser;
-import co.com.personal.fitness.tracker.model.entity.Workout;
-import co.com.personal.fitness.tracker.model.entity.WorkoutExercise;
+import co.com.personal.fitness.tracker.model.entity.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserView {
@@ -91,11 +91,77 @@ public class UserView {
     }
 
     private void displayLogWorkoutMenu(RegularUser user) {
+        List<Workout> workouts = workoutController.getAvailableWorkouts();
+
+        if (workouts.isEmpty()) {
+            System.out.println("\n✗ No workouts available to log.");
+            return;
+        }
+
+        System.out.println("\n" + "=".repeat(80));
+        System.out.println("LOG A WORKOUT");
+        System.out.println("=".repeat(80));
+
+        for (int i = 0; i < workouts.size(); i++) {
+            System.out.println((i + 1) + ". " + workouts.get(i).getName());
+        }
+
+        System.out.print("\nSelect workout number (or 0 to cancel): ");
+        try {
+            int choice = Integer.parseInt(scanner.nextLine());
+            if (choice == 0) return;
+            if (choice < 1 || choice > workouts.size()) {
+                System.out.println("\n✗ Invalid workout selection.");
+                return;
+            }
+
+            Workout selectedWorkout = workouts.get(choice - 1);
+            Map<String, Integer> exerciseTimes = new HashMap<>();
+
+            System.out.println("\nEnter time taken (in seconds) for each exercise:");
+            for (WorkoutExercise we : selectedWorkout.getExercises()) {
+                System.out.printf("%s (%d sets x %d reps): ",
+                        we.getExercise().getName(), we.getSets(), we.getRepetitions());
+                int time = Integer.parseInt(scanner.nextLine());
+                exerciseTimes.put(we.getExercise().getId(), time);
+            }
+
+            WorkoutLog log = workoutController.handleLogWorkout(user, selectedWorkout.getId(), exerciseTimes);
+            System.out.println("\n✓ Workout logged successfully!");
+            System.out.printf("Total time: %d seconds (%.1f minutes)%n",
+                    log.getTotalTime(), log.getTotalTime() / 60.0);
+
+        } catch (Exception e) {
+            System.out.println("\n✗ Error logging workout: " + e.getMessage());
+        }
+
 
     }
 
     private void displayHistoryMenu(RegularUser user) {
+        List<WorkoutLog> history = workoutController.getUserHistory(user);
 
+        System.out.println("\n" + "=".repeat(80));
+        System.out.println("YOUR WORKOUT HISTORY");
+        System.out.println("=".repeat(80));
+
+        if (history.isEmpty()) {
+            System.out.println("\nNo workouts logged yet. Start your fitness journey!");
+            return;
+        }
+
+        for (int i = 0; i < history.size(); i++) {
+            WorkoutLog log = history.get(i);
+            System.out.printf("%n%d. %s - %s%n", i + 1, log.getWorkout().getName(), log.getDate());
+            System.out.printf("   Total Time: %d seconds (%.1f minutes)%n",
+                    log.getTotalTime(), log.getTotalTime() / 60.0);
+            System.out.println("   Exercise Details:");
+            for (ExerciseLog el : log.getExerciseLogs()) {
+                System.out.printf("   - %s: %d seconds%n",
+                        el.getExercise().getName(), el.getTimetaken());
+            }
+        }
+        System.out.println("\n" + "=".repeat(80));
     }
 
     private void displayUpdateProfileMenu(RegularUser user) {

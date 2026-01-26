@@ -1,6 +1,10 @@
 package co.com.personal.fitness.tracker.model.entity;
 
-public class ExerciseLog {
+import java.io.Serializable;
+
+public class ExerciseLog implements Serializable {
+    private static final long serialVersionUID=1L;
+
     private Exercise exercise;
     private Integer timetaken;
 

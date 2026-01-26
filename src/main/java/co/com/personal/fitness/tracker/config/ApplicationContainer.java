@@ -12,8 +12,6 @@ import java.util.Scanner;
 public class ApplicationContainer {
 
     private final BaseDependencyContainer baseContainer;
-
-
     private final RepositoryContainer repositoryContainer;
     private final ServiceContainer serviceContainer;
     private final ControllerContainer controllerContainer;
@@ -24,26 +22,14 @@ public class ApplicationContainer {
 
     public ApplicationContainer() {
 
-
-
         this.baseContainer = new BaseDependencyContainer();
-
-        this.repositoryContainer = new RepositoryContainer();
-
+        this.repositoryContainer = new RepositoryContainer(baseContainer.getDataPersistence());
         this.serviceContainer = new ServiceContainer(repositoryContainer);
-
         this.controllerContainer = new ControllerContainer(serviceContainer);
-
         this.viewContainer = new ViewContainer(controllerContainer, baseContainer.getScanner());
-
-
         this.dataInitializer = new DataInitializer(repositoryContainer);
+
         this.dataInitializer.initialize();
-
-
-
-
-
 
     }
 

@@ -24,6 +24,8 @@ public class WorkoutLog {
         this.exerciseLogs.add(log);
     }
 
+
+
     public String getId(){
         return id;
     }
