@@ -1,5 +1,5 @@
 # personal-fitness-tracker
-   Java OOP application for managing users and exercises(Personal Fitness Tracker
+   Java OOP application for managing users and exercises(Personal Fitness Tracker)
 
 ## Description
 This project was created as part of my learning process in software development, focusing on Java fundamentals and OOP concepts.
