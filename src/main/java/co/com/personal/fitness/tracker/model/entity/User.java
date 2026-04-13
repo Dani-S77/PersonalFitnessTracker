@@ -1,8 +1,12 @@
-package org.example.model.entity;
+package co.com.personal.fitness.tracker.model.entity;
 
-import org.example.model.enums.UserRole;
+import co.com.personal.fitness.tracker.model.enums.UserRole;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
+    private static final long serialVersionUID=1L;
+
     private String id;
     private String firstName;
     private String lastName;
@@ -19,6 +23,17 @@ public abstract class User {
 
     public abstract UserRole getRole();
 
+    public boolean isAdmin(){
+        return this.getRole() == UserRole.ADMIN;
+    }
+
+    public boolean isSuperAdmin(){
+        return this.getRole()==UserRole.SUPERADMIN;
+    }
+
+
+
+
     public String getId() {
         return id;
     }
@@ -31,8 +46,8 @@ public abstract class User {
         return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
